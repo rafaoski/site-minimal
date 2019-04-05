@@ -19,6 +19,12 @@
  ``` pages('options')->site_name ```  
   ``` pages->get('options')->site_name ``` 
 
+#### Additionally, you can use the icon font that are included:
+[Feather Icons](https://feathericons.com/)
+
+#### All images ( svg ) on the pages come from:
+[Icofont](https://icofont.com/)
+
 #### If you want to use [Laravel Mix](https://github.com/JeffreyWay/laravel-mix) you must first ensure that [Node.js](https://nodejs.org/en/download/) and [NPM](https://www.npmjs.com/get-npm) are installed on your machine.
 Basic example to Debian and Ubuntu based Linux distributions:  
 #### Node.js
