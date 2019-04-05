@@ -1,0 +1,23 @@
+<?php namespace ProcessWire;
+
+/**
+ * ProcessWire Bootstrap API Ready
+ * ===============================
+ * This ready.php file is called during ProcessWire bootstrap initialization process.
+ * This occurs after the current page has been determined and the API is fully ready
+ * to use, but before the current page has started rendering. This file receives a
+ * copy of all ProcessWire API variables. This file is an idea place for adding your
+ * own hook methods.
+ *
+ */
+
+/** @var ProcessWire $wire */
+// Hook Admin Custom CSS
+$wire->addHookAfter('Page::render', function($event) {
+	if(page()->template != 'admin') return;
+// Return Content
+	$value  = $event->return;
+	$templates = urls()->templates;
+	$style = "<link rel='stylesheet' href='{$templates}assets/css/admin.css'>";
+	$event->return = str_replace("</head>", "\n\t$style</head>", $value);
+});
