@@ -70,8 +70,9 @@ $img = page()->images->first;
         <?= editPage() ?>
         <?= debugInfo() ?>
 
-        <!-- <div id="search-form" class='search-form'>
-            <?php // echo searchForm() ?>
+       <!-- If you need a search form, just uncomment it
+        <div id="search-form" class='search-form'>
+        <?php // echo searchForm() ?>
         </div> -->
 
         <p id='copyright' class='copyright flex-center'>
