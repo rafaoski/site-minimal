@@ -89,7 +89,7 @@ CREATE TABLE `field_google_map` (
   FULLTEXT KEY `data` (`data`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `field_google_map` (`pages_id`, `data`) VALUES('1022', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3109.8525758583332!2d-77.07878138479421!3d38.7900138795873!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b7b1946ece9cfb%3A0xf0c633f010bf461d!2sAlexandria%2C+Wirginia+22303%2C+Stany+Zjednoczone!5e0!3m2!1spl!2spl!4v1554410894775!5m2!1spl!2spl\" width=\"600\" height=\"450\" frameborder=\"0\" style=\"border:0\" allowfullscreen></iframe>');
+INSERT INTO `field_google_map` (`pages_id`, `data`) VALUES('1022', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3109.8525758583332!2d-77.07878138479421!3d38.7900138795873!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b7b1946ece9cfb%3A0xf0c633f010bf461d!2sAlexandria%2C+Wirginia+22303%2C+Stany+Zjednoczone!5e0!3m2!1spl!2spl!4v1554410894775!5m2!1spl!2spl\" width=\"600\" height=\"450\" style=\"border:0\" allowfullscreen></iframe>');
 
 DROP TABLE IF EXISTS `field_images`;
 CREATE TABLE `field_images` (
