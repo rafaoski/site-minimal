@@ -22,11 +22,12 @@ setting([
 // Get Styles
     'css-files' => WireArray([
         urls('templates') . 'assets/css/main.css',
+        // urls('templates') . 'assets/css/mix.css',
     ]),
 // Get Scripts
     'js-files' => WireArray([
-        // urls('templates') . 'assets/js/app.js',
         'https://unpkg.com/feather-icons',
+        // urls('templates') . 'assets/js/app.js',
     ]),
 
 /* TRANSLATABLE STRINGS */
