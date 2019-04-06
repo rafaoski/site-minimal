@@ -28,7 +28,7 @@
     <div class="contact-body flex-center">
         <div class='contact-info'>
 
-         <!-- If you want to have more control over the data, create three text boxes ( phone, e_mail, adress ) and assign to this template
+         <!-- If you want to have more control over the data, create three text fields ( phone, e_mail, adress ) and assign to this template
          Finally, delete unnecessary comments ...
           <ul>
             <li><b><?php // echo setting('phone') ?>:</b> <?php // echo page('phone') ?></li>
