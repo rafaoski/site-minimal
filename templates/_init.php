@@ -9,7 +9,7 @@
 setting([
 // GET Home Page
     'home' => pages()->get('/'),
-// Custom CSS Classes
+// Custom body class
     'body-classes' => WireArray([
         'template-' . page()->template->name,
         'page-' . page()->id,
@@ -29,9 +29,6 @@ setting([
         'https://unpkg.com/feather-icons',
         // urls('templates') . 'assets/js/app.js',
     ]),
-
-/* TRANSLATABLE STRINGS */
-
 // Basic Transate
     'lang-code' => __('en'),
     'edit' => __('Edit'),
