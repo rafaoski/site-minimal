@@ -1,6 +1,6 @@
 ### Minimal Site Profile For [Processwire 3x](https://processwire.com/) with include functions like:
 #### [New “Unique” status for pages](https://processwire.com/blog/posts/pw-3.0.127/)  
-#### [New $page->if() method](https://processwire.com/blog/posts/pw-3.0.126/) 
+#### [New $page->if() method](https://processwire.com/blog/posts/pw-3.0.126/)
 #### [API setting()](https://processwire.com/blog/posts/processwire-3.0.119-and-new-site-updates/#new-functions-api-setting-function)
 #### [MarkupRegions](https://processwire.com/blog/posts/processwire-3.0.49-introduces-a-new-template-file-strategy/)
 #### [FunctionsAPI](https://processwire.com/blog/posts/processwire-3.0.39-core-updates/)  
@@ -17,13 +17,14 @@
 4. You can easily add [hooks](https://processwire.com/docs/modules/hooks/) using the ``` ready.php ``` file.
 5. Options page added with the new [“Unique”](https://processwire.com/blog/posts/pw-3.0.127/) status, which you can use in this simple way like:  
  ``` pages('options')->site_name ```  
-  ``` pages->get('options')->site_name ``` 
+  ``` pages->get('options')->site_name ```
 
 #### Additionally, you can use the icon font that are included:
 [Feather Icons](https://feathericons.com/)
 
 #### All images ( svg ) on the pages come from:
-[Icofont](https://icofont.com/)
+[Icofont](https://icofont.com/)  
+[Simpleicons ( Processwire Logo ) ](https://simpleicons.org/?q=processwire)
 
 #### If you want to use [Laravel Mix](https://github.com/JeffreyWay/laravel-mix) you must first ensure that [Node.js](https://nodejs.org/en/download/) and [NPM](https://www.npmjs.com/get-npm) are installed on your machine.
 Basic example to Debian and Ubuntu based Linux distributions:  
