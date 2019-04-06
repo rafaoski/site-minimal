@@ -6,9 +6,6 @@
 
 /** @var ProcessWire $wire */
 
-// Set Jquery For Blog Post
-urls()->set('jquery', 'wire/modules/Jquery/JqueryCore/JqueryCore.js');
-
 setting([
 // GET Home Page
     'home' => pages()->get('/'),
@@ -31,9 +28,6 @@ setting([
         // urls('templates') . 'assets/js/app.js',
         'https://unpkg.com/feather-icons',
     ]),
-
-/* CHECK IF LANGUAGE IS ENABLED */
-// 'languages' => page()->getLanguages() && $modules->isInstalled("LanguageSupportPageNames"),
 
 /* TRANSLATABLE STRINGS */
 
