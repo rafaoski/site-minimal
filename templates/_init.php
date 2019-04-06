@@ -66,8 +66,8 @@ include_once('./_func.php');
 ( Page ) https://processwire.com/docs/start/variables/page/
 ( Pages ) https://processwire.com/docs/start/variables/pages/
 ( Images ) https://processwire.com/docs/fields/images/
-( More on the Functions API ) https://processwire.com/blog/posts/processwire-3.0.40-core-updates/
 ( New functions API ) https://processwire.com/blog/posts/processwire-3.0.39-core-updates/#new-functions-api
+( More on the Functions API ) https://processwire.com/blog/posts/processwire-3.0.40-core-updates/
 ( Markup regions ) https://processwire.com/docs/front-end/output/markup-regions/
 ( Get or set a runtime site setting ) https://processwire.com/api/ref/functions/setting/
 ( New $page->if() method ) https://processwire.com/blog/posts/pw-3.0.126/
