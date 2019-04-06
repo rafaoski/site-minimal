@@ -29,11 +29,11 @@ $img_alt = $img->description ?: page()->title;
 
         <div id='top-panel' class='top-panel'>
             <div id="social-profiles" class='social-profiles'>
-                    <?= socialProfiles(pages('options')->textarea) ?>
+                <?= socialProfiles(pages('options')->textarea) ?>
             </div>
 
             <div id="privacy-policy" class='privacy-policy'>
-                    <?= privacyPolicy(pages('/privacy-policy/')) ?>
+                <?= privacyPolicy(pages('/privacy-policy/')) ?>
             </div>
         </div>
 
