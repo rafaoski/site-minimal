@@ -8,6 +8,7 @@
 $img = '';
 if(count(page()->images)) {
 $img = page()->images->first;
+$img_alt = $img->description ?: page()->title;
 }
 ?>
 <!DOCTYPE html>
@@ -60,7 +61,7 @@ $img = page()->images->first;
         </div>
 
         <div id="header-image" class='header-image flex-center' data-pw-optional>
-            <?php if($img) echo "<img width='300' src='{$img->url}' alt='{$page->title}'>"; ?>
+            <?php if($img) echo "<img width='300' src='{$img->url}' alt='{$img_alt}'>"; ?>
         </div>
 
         <div id="content-body" class='content-body'>
