@@ -6,7 +6,7 @@
 
 // Get First Image
 $img = '';
-if(count(page()->images)) {
+if(page()->images && count(page()->images)) {
 $img = page()->images->first;
 $img_alt = $img->description ?: page()->title;
 }
