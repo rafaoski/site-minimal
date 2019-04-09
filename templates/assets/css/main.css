@@ -131,6 +131,16 @@ a:hover {
   stroke-width: 2;
 }
 
+.lang-item {
+  margin: 5px;
+  text-decoration: none;
+}
+
+.lang-item.current-item {
+  font-weight: bold;
+  border-bottom: 1px solid;
+}
+
 .site-info {
   margin-top: 20px;
 }

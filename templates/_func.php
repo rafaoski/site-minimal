@@ -38,6 +38,54 @@ function breadCrumb($page = null)
 
 /**
  *
+ * @param Page $page
+ *
+ */
+function hreflang(Page $page)
+{
+  if(!$page->getLanguages()) return;
+  if (!modules()->isInstalled("LanguageSupportPageNames")) return;
+  $out = '';
+  // handle output of 'hreflang' link tags for multi-language
+  foreach(languages() as $language) {
+    // if this page is not viewable in the language, skip it
+    if(!$page->viewable($language)) continue;
+    // get the http URL for this page in the given language
+    $url = $page->localHttpUrl($language);
+    // hreflang code for language uses language name from homepage
+    $hreflang = setting('home')->getLanguageValue($language, 'name');
+    if($hreflang == 'home') $hreflang = setting('lang-code');
+    // output the <link> tag: note that this assumes your language names are the same as required by hreflang.
+    $out .= "<link rel='alternate' hreflang='$hreflang' href='$url' />\n";
+  }
+  return $out;
+}
+
+/**
+ *
+ * @param Page $page
+ * @param string $id
+ *
+ */
+function langMenu(Page $page, $id = 'lang-menu')
+{
+if(!$page->getLanguages()) return;
+if (!modules()->isInstalled("LanguageSupportPageNames")) return;
+$out = "\n\t<div id='$id'>\n";
+foreach(languages() as $language) {
+if(!$page->viewable($language)) continue; // is page viewable in this language?
+$class = $language->id == user()->language->id ? 'current-item' : 'no-current';
+$url = $page->localUrl($language);
+$hreflang = setting('home')->getLanguageValue($language, 'name');
+if($hreflang == 'home') $hreflang = setting('lang-code');
+$out .= "\t\t<a class='lang-item $class' hreflang='$hreflang' href='$url'>$language->title</a>\n";
+}
+$out .= "\t</div>\n\n";
+return $out;
+}
+
+/**
+ *
  * @param string $class
  *
  */

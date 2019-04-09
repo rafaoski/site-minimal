@@ -20,6 +20,7 @@ $img_alt = $img->description ?: page()->title;
 <title><?= page('meta_title|title') ?></title>
 <meta name="description" content="<?= page('meta_description') ?>"/>
 <?= setting('css-files')->each("<link rel='stylesheet' href='{value}'>\n") ?>
+<?php // echo hreflang(page()) ?>
 </head>
 <body id='html-body' class='<?= setting('body-classes')->implode(' ') ?>'>
 <!-- MAIN -->
@@ -35,6 +36,7 @@ $img_alt = $img->description ?: page()->title;
             <div id="privacy-policy" class='privacy-policy'>
                 <?= privacyPolicy(pages('/privacy-policy/')) ?>
             </div>
+            <?php // echo langMenu(page()) ?>
         </div>
 
         <div id='site-info' class="site-info flex-center m-b-md">
