@@ -184,7 +184,6 @@ $defaults = [
   'github'
 ];
 $out = '';
-// $style = "style='width: 40px; height: 40px; stroke-width: 1; color: #6d6d6d;'";
   foreach ($defaults as $item)
   {
     foreach ($str as $profile)
