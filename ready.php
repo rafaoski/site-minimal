@@ -12,12 +12,12 @@
  */
 
 /** @var ProcessWire $wire */
-// Hook Admin Custom CSS
-$wire->addHookAfter('Page::render', function($event) {
-	if(page()->template != 'admin') return;
-// Return Content
-	$value  = $event->return;
-	$templates = urls()->templates;
-	$style = "<link rel='stylesheet' href='{$templates}assets/css/admin.css'>";
-	$event->return = str_replace("</head>", "\n\t$style</head>", $value);
-});
+
+/** Hook Admin Custom CSS */
+// $wire->addHookAfter('Page::render', function($event) {
+// 	if(page()->template != 'admin') return; // Check if is Admin Panel
+// 	$value  = $event->return; // Return Content
+// 	$templates = urls()->templates; // Get Template folder URL	
+// 	$style = "<link rel='stylesheet' href='{$templates}assets/css/admin.css'>"; // Add Style inside bottom head	
+// 	$event->return = str_replace("</head>", "\n\t$style</head>", $value); // Return All Changes	
+// });
