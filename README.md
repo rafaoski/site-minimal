@@ -26,6 +26,17 @@
 [Icofont](https://icofont.com/)  
 [Simpleicons ( Processwire Logo ) ](https://simpleicons.org/?q=processwire)
 
+#### Debug Mode
+By default, debugging is enabled in this profile.
+Debug mode causes all errors to be reported to the screen, which can be helpful during development or troubleshooting. When in the Debug mode is not intended for live or production sites.
+To disable, proceed as below:
+
+Edit this file: ```/site/config.php```
+Find this line: ```$config->debug = true;```
+Change the true to false, like below, and save.
+```$config->debug = false;``` 
+This can be found near the bottom of the file, or you can add it if not already there. It will make PHP and ProcessWire report all errors, warnings, notices, etc. Of course, you'll want to set it back to false once you've resolved any issues.
+
 #### If you want to use [Laravel Mix](https://github.com/JeffreyWay/laravel-mix) you must first ensure that [Node.js](https://nodejs.org/en/download/) and [NPM](https://www.npmjs.com/get-npm) are installed on your machine.
 Basic example to Debian and Ubuntu based Linux distributions:  
 #### Node.js
