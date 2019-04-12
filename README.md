@@ -1,4 +1,4 @@
-### Minimal Site Profile For [Processwire 3x](https://processwire.com/) with include functions like:
+### Minimal Site Profile For [Processwire 3x](https://processwire.com/) with include new API additions like:
 #### [New “Unique” status for pages](https://processwire.com/blog/posts/pw-3.0.127/)  
 #### [New $page->if() method](https://processwire.com/blog/posts/pw-3.0.126/)
 #### [API setting()](https://processwire.com/blog/posts/processwire-3.0.119-and-new-site-updates/#new-functions-api-setting-function)
