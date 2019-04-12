@@ -1,4 +1,4 @@
-### Minimal Site Profile For [Processwire 3x](https://processwire.com/) with include new API additions like:
+### Minimal Site Profile For [ProcessWire 3x](https://processwire.com/) with include new API additions like:
 #### [New “Unique” status for pages](https://processwire.com/blog/posts/pw-3.0.127/)  
 #### [New $page->if() method](https://processwire.com/blog/posts/pw-3.0.126/)
 #### [API setting()](https://processwire.com/blog/posts/processwire-3.0.119-and-new-site-updates/#new-functions-api-setting-function)
@@ -24,7 +24,7 @@
 
 #### All images ( svg ) on the pages come from:
 [Icofont](https://icofont.com/)  
-[Simpleicons ( Processwire Logo ) ](https://simpleicons.org/?q=processwire)
+[Simpleicons ( ProcessWire Logo ) ](https://simpleicons.org/?q=processwire)
 
 #### Debug Mode
 By default, debugging is enabled in this profile.
