@@ -28,7 +28,8 @@
 
 #### Debug Mode
 By default, debugging is enabled in this profile.
-Debug mode causes all errors to be reported to the screen, which can be helpful during development or troubleshooting. When in the Debug mode is not intended for live or production sites.
+Debug mode causes all errors to be reported to the screen, which can be helpful during development or troubleshooting.
+Debug mode is not intended for live or production sites.
 To disable, proceed as below:
 
 Edit this file: ```/site/config.php```
