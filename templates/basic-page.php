@@ -1,1 +1,1 @@
-<?php namespace ProcessWire; ?>
+<?php namespace ProcessWire;
