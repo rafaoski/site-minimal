@@ -7,7 +7,7 @@
     .contact-info a { color: red; }
     .search-form input { background: none; }
     .contact-info {  width: 40%; }
-    .contact-info, iframe { width: 55%; }
+    .template-contact iframe { width: 55%; }
     @media screen and (max-width: 1024px) {
       .contact-info, iframe { width: 100% }
     }
