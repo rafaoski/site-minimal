@@ -26,6 +26,7 @@ setting([
     ]),
 // Get Scripts
     'js-files' => WireArray([
+        urls('templates') . 'assets/js/turbolinks.js',
         'https://unpkg.com/feather-icons',
         // urls('templates') . 'assets/js/app.js',
     ]),

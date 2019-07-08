@@ -105,7 +105,7 @@ echo googleFonts('Nunito:200,600');
 // echo gaCode( setting('ga-code') );
 ?>
 <script>
-window.addEventListener('load', function() {
+window.addEventListener('turbolinks:load', function() {
   feather.replace();
 })
 </script>
