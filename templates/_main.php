@@ -24,6 +24,7 @@ $img_alt = $img->description ?: page()->title;
   #main {
     background: no-repeat center center fixed;
     background-size: contain;
+    color: black;
   }
 </style>
 <?php // echo hreflang(page()) ?>
