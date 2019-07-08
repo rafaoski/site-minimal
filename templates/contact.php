@@ -2,18 +2,12 @@
 
 <head id='html-head' pw-append>
   <style media="screen">
-    #main {
-      background: linear-gradient( rgba(255, 255, 255, 0.92), rgba(216, 216, 216, 0.88) ),
-      url("<?php if(count(page()->images)) echo page()->images->first->url;?>")
-      no-repeat center center fixed;
-      background-size: contain;
-    }
     .contact-body, .google-map { flex-wrap: wrap; }
     .contact-info { font-size: 20px; padding: 20px; }
     .contact-info a { color: red; }
     .search-form input { background: none; }
     .contact-info {  width: 40%; }
-    iframe { width: 55%; }
+    .contact-info, iframe { width: 55%; }
     @media screen and (max-width: 1024px) {
       .contact-info, iframe { width: 100% }
     }

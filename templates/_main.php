@@ -20,11 +20,21 @@ $img_alt = $img->description ?: page()->title;
 <title><?= page('meta_title|title') ?></title>
 <meta name="description" content="<?= page('meta_description') ?>"/>
 <?= setting('css-files')->each("<link rel='stylesheet' href='{value}'>\n") ?>
+<style media="screen">
+  #main {
+    background: no-repeat center center fixed;
+    background-size: contain;
+  }
+</style>
 <?php // echo hreflang(page()) ?>
 </head>
 <body id='html-body' class='<?= setting('body-classes')->implode(' ') ?>'>
+
 <!-- MAIN -->
-<div id='main' class='main flex-center position-ref full-height'>
+<div id='main' class='main flex-center position-ref full-height'
+style="background-image: linear-gradient( rgba(255, 255, 255, 0.92), rgba(216, 216, 216, 0.88) ),
+url(<?php if($img) echo $img->url; ?>);">
+
 <!-- CONTENT -->
   <div id='content' class='content'>
 
