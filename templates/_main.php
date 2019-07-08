@@ -27,7 +27,10 @@ $img_alt = $img->description ?: page()->title;
     color: black;
   }
 </style>
-<?php // echo hreflang(page()) ?>
+<?php
+echo setting('js-files')->each("<script src='{value}' defer></script>\n");
+// echo hreflang(page())
+?>
 </head>
 <body id='html-body' class='<?= setting('body-classes')->implode(' ') ?>'>
 
@@ -99,7 +102,6 @@ url(<?php if($img) echo $img->url; ?>);">
 </div><!-- MAIN -->
 
 <?php
-echo setting('js-files')->each("<script src='{value}' defer></script>\n\n");
 // Google Fonts
 echo googleFonts('Nunito:200,600');
 // echo gwCode( setting('gw-code') );
