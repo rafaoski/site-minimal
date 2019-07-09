@@ -14,6 +14,10 @@ $img_alt = $img->description ?: page()->title;
 $cssFiles = setting('css-files');
 // Get JS Files
 $jsFiles = setting('js-files');
+// Disable Turbolinks if the user is logged in
+if ($user->isLoggedin()) {
+    unset($jsFiles[0]); // Unset Turbolinks Script
+}
 ?>
 <!DOCTYPE html>
 <html lang="<?= setting('lang-code') ?>">
@@ -112,7 +116,7 @@ echo googleFonts('Nunito:200,600');
 // echo gaCode( setting('ga-code') );
 ?>
 <script>
-window.addEventListener('turbolinks:load', function() {
+window.addEventListener('<?php if (!$user->isLoggedin()) echo 'turbolinks:';?>load', function() {
   feather.replace();
 })
 </script>
