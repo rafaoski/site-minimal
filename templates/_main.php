@@ -29,11 +29,14 @@ if (user()->isLoggedin()) {
 <meta name="description" content="<?= page('meta_description') ?>"/>
 <?= $cssFiles->each("<link rel='stylesheet' href='{value}'>\n") ?>
 <style media="screen">
-  #main {
+#main {
     background: no-repeat center center fixed;
     background-size: contain;
     color: black;
-  }
+}
+@media screen and (max-width: 1024px) {
+    .header-image { display: none; }
+}   
 </style>
 <?php
 echo $jsFiles->each("<script src='{value}' defer></script>\n");
