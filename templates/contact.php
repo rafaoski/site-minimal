@@ -9,7 +9,8 @@
     .contact-info {  width: 40%; }
     .template-contact iframe { width: 55%; }
     @media screen and (max-width: 1024px) {
-      .contact-info, iframe { width: 100% }
+      .contact-info {  width: 100%; }
+      .template-contact iframe { width: 100% }
     }
   </style>
 </head>
