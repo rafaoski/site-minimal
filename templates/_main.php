@@ -15,7 +15,7 @@ $cssFiles = setting('css-files');
 // Get JS Files
 $jsFiles = setting('js-files');
 // Disable Turbolinks if the user is logged in
-if ($user->isLoggedin()) {
+if (user()->isLoggedin()) {
     unset($jsFiles[0]); // Unset Turbolinks Script
 }
 ?>
@@ -116,7 +116,7 @@ echo googleFonts('Nunito:200,600');
 // echo gaCode( setting('ga-code') );
 ?>
 <script>
-window.addEventListener('<?php if (!$user->isLoggedin()) echo 'turbolinks:';?>load', function() {
+window.addEventListener('<?php if (!user()->isLoggedin()) echo 'turbolinks:';?>load', function() {
   feather.replace();
 })
 </script>
