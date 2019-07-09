@@ -10,6 +10,10 @@ if(page()->images && count(page()->images)) {
 $img = page()->images->first;
 $img_alt = $img->description ?: page()->title;
 }
+// Get CSS Files
+$cssFiles = setting('css-files');
+// Get JS Files
+$jsFiles = setting('js-files');
 ?>
 <!DOCTYPE html>
 <html lang="<?= setting('lang-code') ?>">
@@ -19,7 +23,7 @@ $img_alt = $img->description ?: page()->title;
 <link rel="icon" href="<?= setting('favicon') ?>"/>
 <title><?= page('meta_title|title') ?></title>
 <meta name="description" content="<?= page('meta_description') ?>"/>
-<?= setting('css-files')->each("<link rel='stylesheet' href='{value}'>\n") ?>
+<?= $cssFiles->each("<link rel='stylesheet' href='{value}'>\n") ?>
 <style media="screen">
   #main {
     background: no-repeat center center fixed;
@@ -28,7 +32,7 @@ $img_alt = $img->description ?: page()->title;
   }
 </style>
 <?php
-echo setting('js-files')->each("<script src='{value}' defer></script>\n");
+echo $jsFiles->each("<script src='{value}' defer></script>\n");
 // echo hreflang(page())
 ?>
 </head>
