@@ -37,7 +37,8 @@ function breadCrumb($page = null)
 }
 
 /**
- *
+ * Return the hreflang parameter
+ * 
  * @param Page $page
  *
  */
@@ -62,7 +63,8 @@ function hreflang(Page $page)
 }
 
 /**
- *
+ * Return Language Menu 
+ * 
  * @param Page $page
  * @param string $id
  *
@@ -85,21 +87,31 @@ return $out;
 }
 
 /**
- *
- * @param string $class
+ * Return Site Logo
+ * 
+ * @param array|string $options Options to modify default behavior:
+ *  - `home_url` (link): Home Page URL.
+ *  - `logo_url` (link): Site logo URL.
+ *  - `logo_alt` (string): Loago alt text.
  *
  */
-function siteLogo($alt = 'site-logo')
+function siteLogo($options = array())
 {
-  if (!setting('logo')) return;
-  $home = setting('home')->url;
-  $logo = setting('logo');
-  // Display logo
-  return "<a href='$home'><img src='$logo' alt='$alt'></a>\n";
+// Default Options
+  $defaults = array(
+		'home_url' => setting('home')->url,
+    'logo_url' => pages('options')->logo ? pages('options')->logo->url : '',
+    'logo_alt' => pages('options')->site_name,
+  );
+// Merge Options
+  $options = _mergeOptions($defaults, $options);
+// Display logo
+  return "<a href='$options[home_url]'><img src='$options[logo_url]' alt='$options[logo_alt]'></a>\n";
 }
 
 /**
- *
+ * Return search form
+ * 
  * @return string
  *
  */
@@ -117,6 +129,7 @@ return "
 }
 
 /**
+ *  Return Basic Pagination
  *  https://processwire.com/docs/front-end/markup-pager-nav/
  *
  * @param PageArray $results
@@ -134,29 +147,31 @@ function pagination(PageArray $results)
 }
 
 /**
+ * Return Google Webmaster Tools Verification Code
  *
- * Google Webmaster Tools Verification Code
- *
- * @param string|null $code
+ * @param string $code
  *
  */
-function gwCode($code = null)
+function gwCode($code)
 {
-    if ($code) {
-        return "<meta name='google-site-verification' content='$code' />\n";
-    }
+// If code is empty return null
+if(!$code) return;
+// Return Google Verification Code
+return "<meta name='google-site-verification' content='$code' />\n";
 }
 
 /**
- *
+ * Return Google Analytics Tracking Code
  * https://developers.google.com/analytics/devguides/collection/analyticsjs/
  *
- * @param string|null $code Google Analytics Tracking Code
+ * @param string $code {your-google-analytics-code}
  *
  */
-function gaCode($code = null)
+function gaCode($code)
 {
-if($code) {
+// If code is empty return null
+if(!$code) return;
+// Return Google Analytics Tracking Code
 return "<script defer src='https://www.googletagmanager.com/gtag/js?id=UA-{$code}'></script>
 <script>
     window.dataLayer = window.dataLayer || [];
@@ -164,40 +179,55 @@ return "<script defer src='https://www.googletagmanager.com/gtag/js?id=UA-{$code
     gtag('js', new Date());
     gtag('config', 'UA-{$code}');
 </script>\n\n";
-    }
 }
 
 /**
- *
- * @param string $str Separate with comma
+ * Return Social Profiles 
+ * 
+ * @param string $items Url social profiles separate with comma like:
+ * https://facebook.com/,
+ * https://twitter.com/processwire,
+ * https://youtube.com/,
+ * https://instagram.com/,
+ * https://github.com/processwire/processwire
  *
  */
-function socialProfiles($str)
+function socialProfiles($items)
 {
-if(!$str) return;
-$str = explode(',', $str);
-$defaults = [
-  'facebook',
-  'twitter',
-  'youtube',
-  'instagram',
-  'github'
-];
+// If items is empty return null
+if(!$items) return;
+// Reset variables
 $out = '';
-  foreach ($defaults as $item)
-  {
-    foreach ($str as $profile)
-    {
-        if( strpos( $profile, $item ) !== false ) {
-          $out .= "<a class='social-item' title='$item' href='$profile' target='_blank'><i data-feather='$item'></i></a>";
-        }
-      }
+// Explode to array
+$items = explode(',', $items);
+// Remove NULL, FALSE and Empty Strings ("") ( https://www.php.net/manual/en/function.array-filter.php#Hcom111091 )
+$items = array_filter($items, 'strlen');
+  // Start loop
+  foreach ($items as $item) {
+  // Get clean url
+    $getUrl = sanitizer()->text($item, ['reduceSpace' => true]);
+  // Remove ( https:// ) from url like ( https://twitter.com )
+    $profileName = substr($getUrl, 8);
+  // Get first position ( .com )
+    $pos = strpos($profileName, '.com/');
+  // Show clean icon name like: ( 'twitter', 'facebook')
+    $profileName = substr($profileName, 0, $pos);
+
+  // Or cut the profileName in this way
+    // $pos = strpos($getUrl, '.com/');
+    // $profileName = substr($getUrl, 8, $pos - 8);
+
+  // Prepare link to social profiles
+    $out .= "\n<a class='social-item $profileName' title='$profileName' href='$getUrl' target='_blank'>"; 
+    $out .= "<i data-feather='$profileName'></i></a>\n";
   }
+  // Return all Social Profiles
   return $out;
 }
 
 /**
- *
+ * Return Privacy Policy Page 
+ * 
  * @param Page $privacyPage get privacy poilcy page
  *
  */
@@ -217,19 +247,30 @@ function privacyPolicy($privacyPage)
 }
 
 /**
- *
- * @param string $fonts
+ * Return Google Fonts
+ * 
+ * @param array|string $options Options to modify default behavior:
+ *  - `fonts` (array): Font families from google fonts ( https://fonts.google.com/ ).
  *
  */
-function googleFonts($fonts) {
-if($fonts) {
+function googleFonts($options = array()) {
+
+// Default Options
+$defaults = array(
+  'fonts' => ['Nunito:200,600','Hanalei','Butcherman'],
+);
+// Merge Options
+$options = _mergeOptions($defaults, $options);
+
+$fonts = "'" . implode("','" , $options['fonts']) . "'";
+
 return "<script>
 /* ADD GOOGLE FONTS WITH WEBFONTLOADER
   https://github.com/typekit/webfontloader
 */
 WebFontConfig = {
         google: {
-        families: ['$fonts']
+        families: [$fonts]
     }
 };
 (function(d) {
@@ -239,34 +280,124 @@ WebFontConfig = {
     s.parentNode.insertBefore(wf, s);
 })(document);
 </script>\n\n";
-  }
 }
 
 /**
- *
- * @param string $id
- * @param string $class
+ * Return Link to Edit Page
+ * 
+ * @param array|string $options Options to modify default behavior:
+ *  - `id` (string): Selector id.
+ *  - `div_class` (string): Selector div class.
+ *  - `link_class` (string): Selector link class.
+ *  - `edit_text` (string): The name of the buttont.
+ *  - `edit_url` (link): Url to edit the page
  *
  */
-function editPage($id = 'edit-btn', $class = 'edit-btn flex-center')
+function editPage($options = array())
 {
+// if not Page Editable return null
 if(!page()->editable()) return;
-$edit = page()->editURL;
-$edit_text = setting('edit');
+
+// Default Options
+$defaults = array(
+  'id' => 'edit-btn',
+  'div_class' => 'edit-btn flex-center',
+  'link_class' => 'link-button',
+  'edit_text' => setting('edit'),
+  'edit_url' => page()->editURL,
+);
+// Merge Options
+$options = _mergeOptions($defaults, $options);
+
 // Display region debugging info
-return "<div id='$id' class='$class'><a href='$edit'>$edit_text</a></div>";
+return "<div id='$options[id]' class='$options[div_class]'>
+<a class='$options[link_class]' href='$options[edit_url]'>$options[edit_text]</a></div>";
 }
 
 /**
- *
- * @param string $id
- * @param string $class
+ * Return region debugging info
+ * 
+ * @param array|string $options Options to modify default behavior:
+ *  - `id` (string): Selector id.
+ *  - `class` (string): Selector class.
  *
  */
-function debugInfo($id = 'debug', $class = 'debug flex-center')
+function debugInfo($options = array())
 {
+// Default Options
+$defaults = array(
+  'id' => 'debug',
+  'class' => 'debug flex-centerdebug-bar'
+);
+// Merge Options
+$options = _mergeOptions($defaults, $options);
 // display region debugging info
   if(config()->debug && user()->isSuperuser()) {
-    return "<div id='$id' class='$class'><!--PW-REGION-DEBUG--></div>";
+    return "<div id='$options[id]' class='$options[class]'><!--PW-REGION-DEBUG--></div>";
   }
+}
+
+
+/*****************************************************************************************
+ * Internal support functions
+ *
+ */
+
+/**
+ * Prepare and merge an $options argument
+ *
+ * - This converts PW selector strings data attribute strings to associative arrays.
+ * - This converts non-associative attributes to associative boolean attributes.
+ * - This merges $defaults with $options.
+ *
+ * @param array $defaults
+ * @param array|string $options
+ * @return array
+ * @internal
+ *
+ */
+function _mergeOptions(array $defaults, $options) {
+
+	// allow for ProcessWire selector style strings
+	// allow for Uikit data attribute strings
+	if(is_string($options)) {
+		$options = str_replace(';', ',', $options);
+		$o = explode(',', $options);
+		$options = array();
+		foreach($o as $value) {
+			if(strpos($value, '=')) {
+				// key=value
+				list($key, $value) = explode('=', $value, 2);
+			} else if(strpos($value, ':')) {
+				// key: value
+				list($key, $value) = explode(':', $value, 2);
+			} else {
+				// boolean
+				$key = $value;
+				$value = true;
+			}
+			$key = trim($key);
+			if(is_string($value)) {
+				$value = trim($value);
+				// convert boolean strings to real booleans
+				$v = strtolower($value);
+				if($v === 'false') $value = false;
+				if($v === 'true') $value = true;
+			}
+			$options[$key] = $value;
+		}
+	}
+
+	if(!is_array($options)) {
+		$options = array();
+	}
+
+	foreach($options as $key => $value) {
+		if(is_int($key) && is_string($value)) {
+			// non-associative options convert to boolean attribute
+			$defaults[$value] = true;
+		}
+	}
+
+	return array_merge($defaults, $options);
 }

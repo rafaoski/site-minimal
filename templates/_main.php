@@ -114,7 +114,7 @@ url(<?php if($img) echo $img->url; ?>);">
 
 <?php
 // Google Fonts
-echo googleFonts('Nunito:200,600');
+echo googleFonts( ['fonts' => ['Nunito:200,600']] );
 // echo gwCode( setting('gw-code') );
 // echo gaCode( setting('ga-code') );
 ?>
