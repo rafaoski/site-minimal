@@ -75,7 +75,7 @@ url(<?php if($img) echo $img->url; ?>);">
         </div>
 
         <div id='links' class="links flex-center">
-            <?php navLinks() ?>
+            <?= navLinks() ?>
         </div>
 
         <div id='bredcrumb' class='breadcrumb'>

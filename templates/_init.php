@@ -21,14 +21,13 @@ setting([
     'ga-code' => 'GOOGLE ANALYTICS CODE',
 // Get Styles
     'css-files' => WireArray([
-        urls('templates') . 'assets/css/main.css',
-        // urls('templates') . 'assets/css/mix.css',
+        urls('templates') . 'assets/css/main.css'
     ]),
 // Get Scripts
     'js-files' => WireArray([
         urls('templates') . 'assets/js/turbolinks.js',
         'https://unpkg.com/feather-icons',
-        // urls('templates') . 'assets/js/app.js',
+    // urls('templates') . 'assets/js/app.js',
     ]),
 // Basic Transate
     'lang-code' => __('en'),

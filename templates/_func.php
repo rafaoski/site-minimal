@@ -1,19 +1,34 @@
 <?php namespace ProcessWire;
 
 /**
- *
- * @param PageArray $root
+ * Return Navigation Links
+ * 
+ * @param array|string $options Options to modify default behavior:
+ *  - `root_url` (link): Home Page URL.
+ *  - `class` (string): link class.
  *
  */
-function navLinks($root = null)
+function navLinks($options = array())
 {
-  if(!$root) {
-    $root = pages('/')->and(pages('/')->children);
+// $out is where we store the markup we are creating in this function
+  $out = '';
+// Reset variables  
+  $class = '';
+// Default Options
+  $defaults = array(
+    'root_url' => pages('/')->and(pages('/')->children),
+    'class' => 'link-item'
+  );
+// Merge Options
+  $options = _mergeOptions($defaults, $options);
+
+  $class = $options['class'];
+
+  foreach($options['root_url'] as $item) {
+      $class = $item->id == page()->id ? 'current-item' : $options['class'];
+      $out .= "<a class='$class' href='$item->url'>$item->title</a>\n";
   }
-  foreach($root as $child) {
-    $class = $child->id == wire('page')->id ? 'current-item' : 'link-item';
-    echo "<a class='$class' href='$child->url'>$child->title</a>\n";
-  }
+  return $out;
 }
 
 /**
@@ -23,10 +38,14 @@ function navLinks($root = null)
  */
 function breadCrumb($page = null)
 {
-    if ($page == null) {
-        return '';
-    }
-    $out = '';
+
+  if ($page == null) {
+      return '';
+  }
+
+  // $out is where we store the markup we are creating in this function
+  $out = '';
+
     // breadcrumbs are the current page's parents
     foreach ($page->parents() as $item) {
         $out .= "<span><a href='$item->url'>$item->title</a>" . ' / ' . "</span>";
@@ -46,7 +65,10 @@ function hreflang(Page $page)
 {
   if(!$page->getLanguages()) return;
   if (!modules()->isInstalled("LanguageSupportPageNames")) return;
+
+  // $out is where we store the markup we are creating in this function
   $out = '';
+
   // handle output of 'hreflang' link tags for multi-language
   foreach(languages() as $language) {
     // if this page is not viewable in the language, skip it
@@ -73,7 +95,9 @@ function langMenu(Page $page, $id = 'lang-menu')
 {
 if(!$page->getLanguages()) return;
 if (!modules()->isInstalled("LanguageSupportPageNames")) return;
+// $out is where we store the markup we are creating in this function
 $out = "\n\t<div id='$id'>\n";
+
 foreach(languages() as $language) {
 if(!$page->viewable($language)) continue; // is page viewable in this language?
 $class = $language->id == user()->language->id ? 'current-item' : 'no-current';
@@ -196,7 +220,7 @@ function socialProfiles($items)
 {
 // If items is empty return null
 if(!$items) return;
-// Reset variables
+// $out is where we store the markup we are creating in this function
 $out = '';
 // Explode to array
 $items = explode(',', $items);
