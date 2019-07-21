@@ -136,19 +136,29 @@ function siteLogo($options = array())
 /**
  * Return search form
  * 
- * @return string
+ * @param array|string $options Options to modify default behavior:
+ *  - `search_page` (link): search page URL.
+ *  - `input_placeholder` (string): input placeholder text.
+ *  - `search_label` (string): label text.
  *
  */
-function searchForm()
+function searchForm($options = array())
 {
-$search_page = pages()->get('template=search')->url;
-$placeholder = setting('search-placeholder');
-$search_label = setting('search-label');
+
+// Default Options
+$defaults = array(
+  'search_page' => pages()->get('template=search')->url,
+  'input_placeholder' => setting('search-placeholder'),
+  'search_label' => setting('search-label')
+);
+// Merge Options
+$options = _mergeOptions($defaults, $options);
+
 // return search form
 return "
-  <form id='search-f' class='search-f' action='$search_page' method='get'>
-    <label for='q'>$search_label</label>
-    <input type='search' name='q' class='s-input' id='q' placeholder='$placeholder &hellip;' required>
+  <form id='search-f' class='search-f' action='$options[search_page]' method='get'>
+    <label for='q'>$options[search_label]</label>
+    <input type='search' name='q' class='s-input' id='q' placeholder='$options[input_placeholder] &hellip;' required>
   </form>";
 }
 
