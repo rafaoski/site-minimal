@@ -99,12 +99,12 @@ if (!modules()->isInstalled("LanguageSupportPageNames")) return;
 $out = "\n\t<div id='$id'>\n";
 
 foreach(languages() as $language) {
-if(!$page->viewable($language)) continue; // is page viewable in this language?
-$class = $language->id == user()->language->id ? 'current-item' : 'no-current';
-$url = $page->localUrl($language);
-$hreflang = setting('home')->getLanguageValue($language, 'name');
-if($hreflang == 'home') $hreflang = setting('lang-code');
-$out .= "\t\t<a class='lang-item $class' hreflang='$hreflang' href='$url'>$language->title</a>\n";
+  if(!$page->viewable($language)) continue; // is page viewable in this language?
+    $class = $language->id == user()->language->id ? 'current-item' : 'no-current';
+    $url = $page->localUrl($language);
+    $hreflang = setting('home')->getLanguageValue($language, 'name');
+    if($hreflang == 'home') $hreflang = setting('lang-code');
+    $out .= "\t\t<a class='lang-item $class' hreflang='$hreflang' href='$url'>$language->title</a>\n";
 }
 $out .= "\t</div>\n\n";
 return $out;
@@ -370,7 +370,6 @@ $options = _mergeOptions($defaults, $options);
     return "<div id='$options[id]' class='$options[class]'><!--PW-REGION-DEBUG--></div>";
   }
 }
-
 
 /*****************************************************************************************
  * Internal support functions
