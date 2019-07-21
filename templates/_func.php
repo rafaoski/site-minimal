@@ -39,20 +39,20 @@ function navLinks($options = array())
 function breadCrumb($page = null)
 {
 
-  if ($page == null) {
-      return '';
-  }
+  if ($page == null) return;
 
-  // $out is where we store the markup we are creating in this function
+// $out is where we store the markup we are creating in this function
   $out = '';
 
-    // breadcrumbs are the current page's parents
-    foreach ($page->parents() as $item) {
-        $out .= "<span><a href='$item->url'>$item->title</a>" . ' / ' . "</span>";
-    }
-    // optionally output the current page as the last item
-    $out .= $page->id != 1  ? "<span>$page->title</span><br>" : '';
-    return $out;
+// breadcrumbs are the current page's parents
+  foreach ($page->parents() as $item) {
+      $out .= "<span><a href='$item->url'>$item->title</a>" . ' / ' . "</span>";
+  }
+
+// optionally output the current page as the last item
+  $out .= $page->id != 1  ? "<span>$page->title</span><br>" : '';
+// return breadcrumb  
+  return $out;
 }
 
 /**
@@ -144,7 +144,7 @@ function searchForm()
 $search_page = pages()->get('template=search')->url;
 $placeholder = setting('search-placeholder');
 $search_label = setting('search-label');
-// Form
+// return search form
 return "
   <form id='search-f' class='search-f' action='$search_page' method='get'>
     <label for='q'>$search_label</label>
