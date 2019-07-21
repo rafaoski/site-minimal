@@ -25,3 +25,6 @@
 #### All images ( svg ) on the pages come from:
 [Icofont](https://icofont.com/)  
 [Simpleicons ( ProcessWire Logo ) ](https://simpleicons.org/?q=processwire)
+
+####  License
+2019 byHumans under the [MIT license](LICENSE).
