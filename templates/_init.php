@@ -8,55 +8,58 @@
 
 setting([
 // GET Home Page
-    'home' => pages()->get('/'),
+	'home' => pages()->get('/'),
 // Custom body class
-    'body-classes' => WireArray([
-        'template-' . page()->template->name,
-        'page-' . page()->id,
-    ]),
+	'body-classes' => WireArray([
+		'template-' . page()->template->name,
+		'page-' . page()->id,
+	]),
 // Options Page
-    'logo' => pages('options')->logo ? pages('options')->logo->url : '',
-    'favicon' => pages('options')->favicon ? pages('options')->favicon->url : '',
-    'gw-code' => 'GOOGLE WEBMASTER CODE',
-    'ga-code' => 'GOOGLE ANALYTICS CODE',
+	'logo' => pages('options')->logo ? pages('options')->logo->url : '',
+	'favicon' => pages('options')->favicon ? pages('options')->favicon->url : '',
+	'background-image' => true, // Body Background Image
+	'gw-code' => 'GOOGLE WEBMASTER CODE',
+	'ga-code' => 'GOOGLE ANALYTICS CODE',
 // Get Styles
-    'css-files' => WireArray([
-        urls('templates') . 'assets/css/main.css'
-    ]),
+	'css-files' => WireArray([
+		urls('templates') . 'assets/css/main.css'
+	]),
 // Get Scripts
-    'js-files' => WireArray([
-        urls('templates') . 'assets/js/turbolinks.js',
-        'https://unpkg.com/feather-icons',
-    // urls('templates') . 'assets/js/app.js',
-    ]),
+	'js-files' => WireArray([
+		'https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js',
+		'https://unpkg.com/feather-icons',
+	// urls('templates') . 'assets/js/app.js',
+	]),
 // Basic Transate
-    'lang-code' => __('en'),
-    'edit' => __('Edit'),
-    'next' => __('Next'),
-    'previous' => __('Previous'),
-    'search-placeholder' => __('Search'),
-    'search-label' => __('Search Word'),
-    'found-pages' => __("Found %d page(s)."),
-    'no-found' =>  __('Sorry, no results were found.'),
-    'read-more' => __('Read More'),
-    'e-mail' => __('E-Mail'),
-    'phone' => __('Phone'),
-    'adress' => __('Adress')
+	'lang-code' => __('en'),
+	'edit' => __('Edit'),
+	'next' => __('Next'),
+	'previous' => __('Previous'),
+	'search-placeholder' => __('Search'),
+	'search-label' => __('Search Word'),
+	'found-pages' => __("Found %d page(s)."),
+	'no-found' =>  __('Sorry, no results were found.'),
+	'read-more' => __('Read More'),
+	'e-mail' => __('E-Mail'),
+	'phone' => __('Phone'),
+	'adress' => __('Adress'),
+	'more-pages' => __('More pages'),
+	'current-page' => __('Current page: '),
 ]);
 
 include_once('./_func.php');
 
 // ADD USER => https://processwire.com/api/variables/user/
-    // $u = $users->add('user-demo');
-    // $u->pass = "demo99";
-    // $u->addRole("guest");
-    // $u->save();
+	// $u = $users->add('user-demo');
+	// $u->pass = "demo99";
+	// $u->addRole("guest");
+	// $u->save();
 
 // RESET PASSWORD => https://processwire.com/talk/topic/1736-forgot-backend-password-how-do-you-reset/
-    // $u = $users->get('admin'); // or whatever your username is
-    // $u->of(false);
-    // $u->pass = 'your-new-password';
-    // $u->save();
+	// $u = $users->get('admin'); // or whatever your username is
+	// $u->of(false);
+	// $u->pass = 'your-new-password';
+	// $u->save();
 
 /*
 ( ProcessWire API variables ) https://processwire.com/docs/start/variables/

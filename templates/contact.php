@@ -1,42 +1,26 @@
 <?php namespace ProcessWire; ?>
 
-<head id='html-head' pw-append>
-  <style media="screen">
-    .contact-body, .google-map { flex-wrap: wrap; }
-    .contact-info { font-size: 20px; padding: 20px; }
-    .contact-info a { color: red; }
-    .search-form input { background: none; }
-    .contact-info {  width: 40%; }
-    .template-contact iframe { width: 55%; }
-    @media screen and (max-width: 1024px) {
-      .contact-info {  width: 100%; }
-      .template-contact iframe { width: 100% }
-    }
-  </style>
-</head>
-
-<div id="site-seo" data-pw-remove></div>
-<div id="header-image" data-pw-remove></div>
+<div id='hero' data-pw-remove></div>
 
 <div id="content-body" class='content-body'>
 
-    <div class="contact-body flex-center">
-        <div class='contact-info'>
+<link rel="stylesheet" href="<?= urls('templates') ?>assets/css/contact.css">
 
-         <!-- If you want to have more control over the data, create three text fields ( phone, e_mail, adress ) and assign to this template
-         Finally, delete unnecessary comments ...
-          <ul>
-            <li><b><?php // echo setting('phone') ?>:</b> <?php // echo page('phone') ?></li>
-            <li><b><?php // echo setting('e-mail') ?>:</b>
-                <a href='mailto:<?php // echo page('e_mail') ?>'><?php // echo page('e_mail') ?></a></li>
-            <li><b><?php // echo setting('adress') ?>:</b> <?php // echo page('adress') ?></li>
-          </ul> -->
+	<div class="contact-body flex-center">
+		<div class='contact-info'>
+			<!-- If you want to have more control over the data, create three text fields ( phone, e_mail, adress ) and assign to this template
+			Finally, delete unnecessary comments ...
+			<ul>
+			<li><b><?php // echo setting('phone') ?>:</b> <?php // echo page('phone') ?></li>
+			<li><b><?php // echo setting('e-mail') ?>:</b>
+				<a href='mailto:<?php // echo page('e_mail') ?>'><?php // echo page('e_mail') ?></a></li>
+			<li><b><?php // echo setting('adress') ?>:</b> <?php // echo page('adress') ?></li>
+			</ul> -->
+			<?= page()->body ?>
+		</div>
 
-            <?= page()->body ?>
-        </div>
+		<?= page('google_map') ?>
 
-        <?= page('google_map') ?>
-
-    </div>
+	</div>
 
 </div>

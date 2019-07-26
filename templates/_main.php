@@ -4,19 +4,24 @@
  *
  */
 
-// Get First Image
-$img = '';
-if(page()->images && count(page()->images)) {
-$img = page()->images->first;
-$img_alt = $img->description ?: page()->title;
-}
-// Get CSS Files
+// reset Variables
+$img = $img_alt = $style = '';
+// get CSS Files
 $cssFiles = setting('css-files');
-// Get JS Files
+// get JS Files
 $jsFiles = setting('js-files');
-// Disable Turbolinks if the user is logged in
+// disable turbolinks if the user is logged in
 if (user()->isLoggedin()) {
-    unset($jsFiles[0]); // Unset Turbolinks Script
+	unset($jsFiles[0]); // unset turbolinks
+}
+// Get First Image
+if(page()->images && count(page()->images)) {
+  $img = page()->images->first;
+  $img_alt = $img->description ?: page()->title;
+}
+// setting(false, 'background-image'); // Disable background image
+if ( setting('background-image') && $img ) { // set Background Image
+  $style = " style='background-image: linear-gradient( rgba(255, 255, 255, 0.92), rgba(216, 216, 216, 0.88) ), url($img->url);'";
 }
 ?>
 <!DOCTYPE html>
@@ -28,89 +33,68 @@ if (user()->isLoggedin()) {
 <title><?= page('meta_title|title') ?></title>
 <meta name="description" content="<?= page('meta_description') ?>"/>
 <?= $cssFiles->each("<link rel='stylesheet' href='{value}'>\n") ?>
-<style media="screen">
-#main {
-    background: no-repeat center center fixed;
-    background-size: contain;
-    color: black;
-}
-@media screen and (max-width: 1024px) {
-    .header-image { display: none; }
-}   
-</style>
 <?php
 echo $jsFiles->each("<script src='{value}' defer></script>\n");
 // echo hreflang(page())
 ?>
 </head>
-<body id='html-body' class='<?= setting('body-classes')->implode(' ') ?>'>
+<body id='html-body' class='<?= setting('body-classes')->implode(' ') ?>'<?= $style ?>>
 
-<!-- MAIN -->
-<div id='main' class='main flex-center position-ref full-height'
-style="background-image: linear-gradient( rgba(255, 255, 255, 0.92), rgba(216, 216, 216, 0.88) ),
-url(<?php if($img) echo $img->url; ?>);">
+<!-- HEADER -->
+	<header id="header" class="container-medium header">
 
-<!-- CONTENT -->
-  <div id='content' class='content'>
+		<?= privacyPolicy(['class' => 'privacy-policy']) ?>
 
-        <div id='top-panel' class='top-panel'>
-            <div id="social-profiles" class='social-profiles'>
-                <?= socialProfiles(pages('options')->textarea) ?>
-            </div>
+		<?php // echo langMenu(page()) ?>
 
-            <div id="privacy-policy" class='privacy-policy'>
-                <?= privacyPolicy(pages('/privacy-policy/')) ?>
-            </div>
-            <?php // echo langMenu(page()) ?>
-        </div>
+		<?= siteInfo(['class' => 'site-info flex-center flex-direction-column']) ?>
 
-        <div id='site-info' class="site-info flex-center m-b-md">
-            <div id="logo" class='logo'>
-                <?= siteLogo() ?>
-            </div>
+		<?= breadCrumb(['class' => 'breadcrumb']) ?>
 
-            <div id='site-name' class="site-name">
-                <?= pages('options')->site_name ?>
-            </div>
-        </div>
+		<?= navLinks(['class' => 'links']) ?>
 
-        <div id='links' class="links flex-center">
-            <?= navLinks() ?>
-        </div>
+	</header>
 
-        <div id='bredcrumb' class='breadcrumb'>
-            <?= breadCrumb(page()) ?>
-        </div>
+<!-- HERO -->
+	<div id="hero" class='container-medium m-t flex-center flex-wrap-mobile hero' data-pw-optional>
 
-        <div id="site-seo" class='site-seo' data-pw-optional>
-            <?= page()->if("meta_title", "<h1>{meta_title}</h1>") ?>
-            <?= page()->if("meta_description", "<h2>{meta_description}</h2>") ?>
-        </div>
+		<div id='left-hero' class="flex-center flex-direction-column flex-wrap-mobile left-hero">
 
-        <div id="header-image" class='header-image flex-center' data-pw-optional>
-            <?php if($img) echo "<img width='300' src='{$img->url}' alt='{$img_alt}'>"; ?>
-        </div>
+			<?= page()->if("meta_title", "<h1>{meta_title}</h1>") ?>
 
-        <div id="content-body" class='content-body'>
-            <?= page()->body ?>
-        </div>
+			<?php if ($img): ?>
+				<img src='<?= $img->url ?>' class='responsive' alt='<?= $img_alt ?>'>
+			<?php endif ?>
 
-        <?= editPage() ?>
-        <?= debugInfo() ?>
+		</div>
 
-       <!-- If you need a search form, just uncomment it
-        <div id="search-form" class='search-form'>
-        <?php // echo searchForm() ?>
-        </div> -->
+		<?= page()->if("meta_description", "<h2 class='right-hero'>{meta_description}</h2>") ?>
 
-        <p id='copyright' class='copyright flex-center'>
-            <small class='uk-text-small uk-text-muted'>&copy; <?= date('Y') ?> &bull;</small>
-            <a href='https://processwire.com'>Powered by ProcessWire CMS</a>
-        </p>
+	</div>
 
-  </div><!-- /CONTENT -->
+<!-- CONTENT BODY -->
+	<div id="content-body" class='container content-body'>
 
-</div><!-- MAIN -->
+		<?= page()->body ?>
+
+	</div>
+
+	<?= editPage() ?>
+	<?= debugInfo() ?>
+
+<!-- FOOTER -->
+	<footer id='footer' class='container-full footer'>
+
+		<?= searchForm() ?>
+
+		<?= socialProfiles(['class' => 'social-profiles flex-center']) ?>
+
+		<p id='copyright' class='copyright flex-center'>
+			<small class='uk-text-small uk-text-muted'>&copy; <?= date('Y') ?> &bull;</small>
+			<a href='https://processwire.com' target='_blank' rel='noopener noreferrer'>Powered by ProcessWire CMS</a>
+		</p>
+
+	</footer>
 
 <?php
 // Google Fonts
