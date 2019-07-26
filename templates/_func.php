@@ -50,7 +50,6 @@ function renderNavTree($items, $maxDepth = 3) {
 	echo "</ul>";
 }
 
-
 /**
  * Return Privacy Policy Page
  *
@@ -58,6 +57,7 @@ function renderNavTree($items, $maxDepth = 3) {
  *	- `id` (string): Selector id.
  *  - `class` (string): Selector class.
  *  - `privacy_page` (link): URL to privacy page.
+ *  - `read_more` (string): Read more text.
  *
  */
 function privacyPolicy($options = array())
