@@ -19,7 +19,7 @@ function renderNavTree($items, $maxDepth = 3) {
 
 	// $out is where we store the markup we are creating in this function
 	// start our <ul> markup
-	echo "<ul class='nav nav-tree' role='navigation'>";
+	echo "<ul class='nav nav-tree'>";
 
 	// cycle through all the items
 	foreach($items as $item) {
@@ -254,7 +254,7 @@ foreach ($options['page']->parents as $item) {
 }
 
 // optionally output the current page as the last item
-	$out .= $options['page']->parents->id != 1  ? "<li>{$options['page']->title}</li><br>" : '';
+	$out .= $options['page']->parents->id != 1  ? "<li>{$options['page']->title}</li>" : '';
 
 	$out .= "</ul>";
 

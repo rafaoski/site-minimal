@@ -35,7 +35,7 @@ if ( setting('background-image') && $img ) { // set Background Image
 <?= $cssFiles->each("<link rel='stylesheet' href='{value}'>\n") ?>
 <?php
 echo $jsFiles->each("<script src='{value}' defer></script>\n");
-// echo hreflang(page())
+echo hreflang(page())
 ?>
 </head>
 <body id='html-body' class='<?= setting('body-classes')->implode(' ') ?>'<?= $style ?>>
@@ -45,7 +45,7 @@ echo $jsFiles->each("<script src='{value}' defer></script>\n");
 
 		<?= privacyPolicy(['class' => 'privacy-policy']) ?>
 
-		<?php // echo langMenu(page()) ?>
+		<?php echo langMenu(page()) ?>
 
 		<?= siteInfo(['class' => 'site-info flex-center flex-direction-column']) ?>
 
