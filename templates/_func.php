@@ -203,8 +203,8 @@ $out = '';
 // Default Options
 $defaults = array(
 	'root_url' => pages('/')->and(pages('/')->children),
-	'id' => 'links',
-	'class' => 'links'
+	'id' => 'main-nav',
+	'class' => 'main-nav'
 );
 // Merge Options
 $options = _mergeOptions($defaults, $options);

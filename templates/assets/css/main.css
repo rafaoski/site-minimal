@@ -179,16 +179,17 @@ ol,li > a {
 
 /* NAV MENU */
 
-.links {
-	flex-wrap: wrap;
+.main-nav {
+	overflow: auto;
+	white-space: nowrap;
 }
 
-.links a {
+.main-nav a {
 	margin: 5px;
 	font-weight: 600;
 }
 
-.links > a {
+.main-nav > a {
 	color: #636b6f;
 	padding: 0 5px;
 	margin: 2px;
@@ -200,11 +201,11 @@ ol,li > a {
 	transition: all .3s;
 }
 
-.links > a:hover {
+.main-nav > a:hover {
   	color: black;
 }
 
-.links > a.current-item {
+.main-nav > a.current-item {
 	font-weight: bold;
 	border-bottom: 1px solid;
 }

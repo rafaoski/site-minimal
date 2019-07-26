@@ -51,7 +51,7 @@ echo $jsFiles->each("<script src='{value}' defer></script>\n");
 
 		<?= breadCrumb(['class' => 'breadcrumb']) ?>
 
-		<?= navLinks(['class' => 'links']) ?>
+		<?= navLinks(['class' => 'main-nav']) ?>
 
 	</header>
 
