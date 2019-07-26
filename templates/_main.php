@@ -45,7 +45,7 @@ echo hreflang(page())
 
 		<?= privacyPolicy(['class' => 'privacy-policy']) ?>
 
-		<?php echo langMenu(page()) ?>
+		<?= langMenu(page()) ?>
 
 		<?= siteInfo(['class' => 'site-info flex-center flex-direction-column']) ?>
 
