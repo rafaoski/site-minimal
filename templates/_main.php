@@ -25,15 +25,19 @@ if(page()->images && count(page()->images)) {
 	<!-- HEADER -->
 	<header id="header" class="container-medium header">
 
-		<?= privacyPolicy(['class' => 'privacy-policy']) ?>
+		<p id='privacy-policy' class='privacy-policy'>
+			<?= privacyPolicy() ?>
+		</p>
 
 		<?= langMenu(page()) ?>
 
-		<?= siteInfo(['class' => 'site-info flex-center flex-direction-column']) ?>
+		<p id='site-info' class='site-info flex-center flex-direction-column'>
+			<?= siteInfo() ?>
+		</p>
 
-		<?= breadCrumb(['class' => 'breadcrumb']) ?>
+		<ul id='breadcrumb' class='breadcrumb'><?= breadCrumb() ?></ul>
 
-		<?= navLinks(['class' => 'main-nav']) ?>
+		<nav id='main-nav' class='main-nav'><?= navLinks() ?></nav>
 
 	</header>
 

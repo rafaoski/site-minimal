@@ -105,8 +105,6 @@ if( input()->pageNum == null || config()->pagerHeadTags == null ) return;
  *
  * @param array|string $options Options to modify default behavior:
  *  - `root_url` (link): Home Page URL.
- * 	- `id` (string): Selector id.
- *  - `class` (string): Selector class.
  *
  */
 function navLinks($options = array())
@@ -117,21 +115,15 @@ $out = '';
 
 // Default Options
 $defaults = array(
-	'root_url' => pages('/')->and(pages('/')->children),
-	'id' => 'main-nav',
-	'class' => 'main-nav'
+	'root_url' => pages('/')->and(pages('/')->children)
 );
 // Merge Options
 $options = _mergeOptions($defaults, $options);
 
-	$out .= "<nav id='$options[id]' class='$options[class]'>";
-
-		foreach($options['root_url'] as $item) {
-			$class = $item->id == page()->id ? 'current-item' : 'no-current';
-			$out .= "<a class='$class' href='$item->url'>$item->title</a>\n";
-		}
-
-	$out .= "</nav>";
+	foreach($options['root_url'] as $item) {
+		$class = $item->id == page()->id ? 'current-item' : 'no-current';
+		$out .= "<a class='$class' href='$item->url'>$item->title</a>\n";
+	}
 
   return $out;
 }
@@ -217,8 +209,6 @@ function renderNavTree($items, $maxDepth = 3) {
  *
  * @param array|string $options Options to modify default behavior:
  *  - `page` (Page|PageArray): Home Page URL.
- * 	- `id` (string): Selector id.
- *  - `class` (string): Selector class.
  *
  */
 function breadCrumb($options = array())
@@ -230,14 +220,10 @@ $out = '';
 
 // Default Options
 $defaults = array(
-	'page' => page(),
-	'id' => 'breadcrumb',
-	'class' => 'breadcrumb'
+	'page' => page()
 );
 // Merge Options
 $options = _mergeOptions($defaults, $options);
-
-$out .= "<ul id='$options[id]' class='$options[class]'>";
 
 // breadcrumbs are the current page's parents
 foreach ($options['page']->parents as $item) {
@@ -246,8 +232,6 @@ foreach ($options['page']->parents as $item) {
 
 // optionally output the current page as the last item
 	$out .= $options['page']->parents->id != 1  ? "<li>{$options['page']->title}</li>" : '';
-
-	$out .= "</ul>";
 
 // return breadcrumb
 	return $out;
@@ -279,8 +263,6 @@ function backgroundImage($options = array())
  * Return Privacy Policy Page
  *
  * @param array|string $options Options to modify default behavior:
- *	- `id` (string): Selector id.
- *  - `class` (string): Selector class.
  *  - `privacy_page` (link): URL to privacy page.
  *  - `read_more` (string): Read more text.
  *
@@ -290,15 +272,11 @@ function privacyPolicy($options = array())
 // Default Options
 $defaults = array(
 	'privacy_page' => pages()->get("template=privacy-policy"),
-	'id' => 'privacy-policy',
-	'class' => 'privacy-policy',
 	'read_more' => setting('read-more'),
   );
 // Merge Options
 $options = _mergeOptions($defaults, $options);
   	return "
-  	<p id='$options[id]' class='$options[class]'>
-
 	<span class='privacy-text'>
 		<i data-feather='info'></i>
 		{$options['privacy_page']->meta_title}
@@ -307,7 +285,6 @@ $options = _mergeOptions($defaults, $options);
 	<a href='{$options['privacy_page']->url}'>
 		$options[read_more]
 	</a>
-  </p>
   ";
 }
 
@@ -378,8 +355,6 @@ $out .= "<p id='$options[id]' class='$options[class]'>";
  *  - `home_url` (link): Home Page URL.
  *  - `logo_url` (link): Site logo URL.
  *  - `logo_alt` (string): Loago alt text.
- * 	- `id` (string): Selector id.
- *  - `class` (string): Selector class.
  *
  */
 function siteInfo($options = array())
@@ -392,18 +367,15 @@ function siteInfo($options = array())
 	'home_url' => setting('home')->url,
 	'logo_url' => pages('options')->logo ? pages('options')->logo->url : '',
 	'logo_alt' => pages('options')->site_name,
-	'id' => 'site-info',
-	'class' => 'site-info'
   );
 // Merge Options
   	$options = _mergeOptions($defaults, $options);
 // Display logo
-	$out .= "<p id='$options[id]' class='$options[class]'><a href='$options[home_url]'>";
 	$out .= "<img src='$options[logo_url]' alt='$options[logo_alt]'></a>";
 	if (page()->template == 'home') {
-		$out .=	 "<span class='site-name name'>" . pages('options')->site_name . '</span></p>';
+		$out .=	 "<span class='site-name name'>" . pages('options')->site_name . '</span>';
 	} else {
-		$out .=	 "<span class='site-name page-title'>/ " . page()->title . ' /</span></p>';
+		$out .=	 "<span class='site-name page-title'>/ " . page()->title . ' /</span>';
 	}
 
 // Return logo / Site Name

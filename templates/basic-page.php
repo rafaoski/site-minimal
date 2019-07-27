@@ -10,15 +10,14 @@
 
 	<h3><?= setting('more-pages') ?></h3>
 
-	<div class='page-children flex-center' style='flex-wrap: wrap'>
+	<div class='flex-center' style='flex-wrap: wrap'>
 
 		<?php foreach (page()->children() as $item): ?>
-			<div class="card-default">
-				<a  href='<?= $item->url ?>'>
-					<h4><?= $item->title ?></h4>
-					<?= page()->if("meta_title", "<p class='right-hero'>{meta_title}</p>") ?>
-				</a>
+		<a class="card-default" style='margin: 20px;' href='<?= $item->url ?>'>
+			<div >
+				<h4><?= $item->title ?></h4>
 			</div>
+		</a>
 		<?php endforeach; ?>
 
 	</div>
