@@ -275,7 +275,6 @@ function backgroundImage($options = array())
 	}
 }
 
-
 /**
  * Return Privacy Policy Page
  *
