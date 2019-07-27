@@ -22,7 +22,7 @@ if(page()->images && count(page()->images)) {
 </head>
 <body id='html-body' class='<?= setting('body-classes')->implode(' ') ?>'<?= backgroundImage(['img' => $img]) ?>>
 
-<!-- HEADER -->
+	<!-- HEADER -->
 	<header id="header" class="container-medium header">
 
 		<?= privacyPolicy(['class' => 'privacy-policy']) ?>
@@ -37,7 +37,7 @@ if(page()->images && count(page()->images)) {
 
 	</header>
 
-<!-- HERO -->
+	<!-- HERO -->
 	<div id="hero" class='container-medium m-t flex-center flex-wrap-mobile hero' data-pw-optional>
 
 		<div id='left-hero' class="flex-center flex-direction-column flex-wrap-mobile left-hero">
@@ -54,7 +54,7 @@ if(page()->images && count(page()->images)) {
 
 	</div>
 
-<!-- CONTENT BODY -->
+	<!-- CONTENT BODY -->
 	<div id="content-body" class='container content-body'>
 
 		<?= page()->body ?>
@@ -64,7 +64,7 @@ if(page()->images && count(page()->images)) {
 	<?= editPage() ?>
 	<?= debugInfo() ?>
 
-<!-- FOOTER -->
+	<!-- FOOTER -->
 	<footer id='footer' class='container-full footer'>
 
 		<?= searchForm() ?>
