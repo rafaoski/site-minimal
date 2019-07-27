@@ -56,9 +56,7 @@ if(page()->images && count(page()->images)) {
 
 	<!-- CONTENT BODY -->
 	<div id="content-body" class='container content-body'>
-
 		<?= page()->body ?>
-
 	</div>
 
 	<?= editPage() ?>
