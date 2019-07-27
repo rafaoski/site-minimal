@@ -4,41 +4,23 @@
  *
  */
 
-// reset Variables
-$img = $img_alt = $style = '';
-// get CSS Files
-$cssFiles = setting('css-files');
-// get JS Files
-$jsFiles = setting('js-files');
-// disable turbolinks if the user is logged in
-if (user()->isLoggedin()) {
-	unset($jsFiles[0]); // unset turbolinks
-}
+// reset variables
+$img = $img_alt = '';
+
 // Get First Image
 if(page()->images && count(page()->images)) {
-  $img = page()->images->first;
-  $img_alt = $img->description ?: page()->title;
-}
-// setting(false, 'background-image'); // Disable background image
-if ( setting('background-image') && $img ) { // set Background Image
-  $style = " style='background-image: linear-gradient( rgba(255, 255, 255, 0.92), rgba(216, 216, 216, 0.88) ), url($img->url);'";
+	$img = page()->images->first;
+	$img_alt = $img->description ?: page()->title;
 }
 ?>
 <!DOCTYPE html>
 <html lang="<?= setting('lang-code') ?>">
 <head id='html-head'>
-<meta http-equiv="content-type" content="text/html; charset=utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" href="<?= setting('favicon') ?>"/>
-<title><?= page('meta_title|title') ?></title>
-<meta name="description" content="<?= page('meta_description') ?>"/>
-<?= $cssFiles->each("<link rel='stylesheet' href='{value}'>\n") ?>
-<?php
-echo $jsFiles->each("<script src='{value}' defer></script>\n");
-echo hreflang(page())
+<?php // site head
+	echo siteHead();
 ?>
 </head>
-<body id='html-body' class='<?= setting('body-classes')->implode(' ') ?>'<?= $style ?>>
+<body id='html-body' class='<?= setting('body-classes')->implode(' ') ?>'<?= backgroundImage(['img' => $img]) ?>>
 
 <!-- HEADER -->
 	<header id="header" class="container-medium header">

@@ -1,6 +1,168 @@
 <?php namespace ProcessWire;
 
 /**
+ * Return site head
+ *
+ * @param array|string $options Options to modify default behavior:
+ *  - `css` (url): CSS files url.
+ *  - `js` (url): JS files url.
+ *  - `favicon` (url): Favicon url.
+ *  - `title` (string): Meta title.
+ *  - `description` (string): Meta description.
+ *
+ */
+function siteHead($options = array())
+{
+
+	// $out is where we store the markup we are creating in this function
+	$out = '';
+
+	// Default Options
+	$defaults = array(
+		'css' => setting('css-files'),
+		'js' => setting('js-files'),
+		'favicon' => setting('favicon'),
+		'title' => page('meta_title|title'),
+		'description' => page('meta_description')
+	);
+	// Merge Options
+	$options = _mergeOptions($defaults, $options);
+
+	// disable turbolinks if the user is logged in
+	if (user()->isLoggedin()) {
+		unset($options['js'][0]); // unset turbolinks
+	}
+
+	$out.= "<meta http-equiv='content-type' content='text/html; charset=utf-8'>";
+	$out.= "<meta name='viewport' content='width=device-width, initial-scale=1.0'>";
+	$out.= "<link rel='icon' href='$options[favicon]'/>";
+	$out.= "<title id='title'>$options[title]</title>";
+	$out.= "<meta id='description' name='description' content='$options[description]'/>";
+	$out.= $options['css']->each("<link rel='stylesheet' href='{value}'>\n");
+	$out.= $options['js']->each("<script src='{value}' defer></script>\n");
+	$out.= hreflang(page()); // the hreflang parameter
+	$out.= seoPagination(); // seo meta robots ( 'noindex, follow' ) or seo pagination
+
+	return $out;
+}
+
+/**
+ * Return the hreflang parameter
+ *
+ * @param Page $page
+ *
+ */
+function hreflang(Page $page)
+{
+  if(!$page->getLanguages()) return;
+  if (!modules()->isInstalled("LanguageSupportPageNames")) return;
+
+  // $out is where we store the markup we are creating in this function
+  $out = '';
+
+  // handle output of 'hreflang' link tags for multi-language
+  foreach(languages() as $language) {
+	// if this page is not viewable in the language, skip it
+	if(!$page->viewable($language)) continue;
+	// get the http URL for this page in the given language
+	$url = $page->localHttpUrl($language);
+	// hreflang code for language uses language name from homepage
+	$hreflang = setting('home')->getLanguageValue($language, 'name');
+	if($hreflang == 'home') $hreflang = setting('lang-code');
+	// output the <link> tag: note that this assumes your language names are the same as required by hreflang.
+	$out .= "<link rel='alternate' hreflang='$hreflang' href='$url' />\n";
+  }
+  return $out;
+}
+
+/**
+ * Return seo meta robots ( 'noindex, follow' ) or seo pagination
+ *
+ * @return mixed
+ *
+ */
+function seoPagination()
+{
+// If not any pageNum or pageHeaderTags
+if( input()->pageNum == null || config()->pagerHeadTags == null ) return;
+
+// $out is where we store the markup we are creating in this function
+	$out = '';
+
+// https://processwire.com/blog/posts/processwire-2.6.18-updates-pagination-and-seo/
+		if (input()->pageNum > 1) {
+				$out .= "<meta name='robots' content='noindex,follow'>\n";
+		}
+// https://weekly.pw/issue/222/
+		if (config()->pagerHeadTags) {
+				$out .= config()->pagerHeadTags . "\n";
+		}
+		return $out;
+}
+
+/**
+ * Return Navigation Links
+ *
+ * @param array|string $options Options to modify default behavior:
+ *  - `root_url` (link): Home Page URL.
+ * 	- `id` (string): Selector id.
+ *  - `class` (string): Selector class.
+ *
+ */
+function navLinks($options = array())
+{
+
+// $out is where we store the markup we are creating in this function
+$out = '';
+
+// Default Options
+$defaults = array(
+	'root_url' => pages('/')->and(pages('/')->children),
+	'id' => 'main-nav',
+	'class' => 'main-nav'
+);
+// Merge Options
+$options = _mergeOptions($defaults, $options);
+
+	$out .= "<nav id='$options[id]' class='$options[class]'>";
+
+		foreach($options['root_url'] as $item) {
+			$class = $item->id == page()->id ? 'current-item' : 'no-current';
+			$out .= "<a class='$class' href='$item->url'>$item->title</a>\n";
+		}
+
+	$out .= "</nav>";
+
+  return $out;
+}
+
+/**
+ * Return Language Menu
+ *
+ * @param Page $page
+ * @param string $id
+ *
+ */
+function langMenu(Page $page, $id = 'lang-menu')
+{
+if(!$page->getLanguages()) return;
+if (!modules()->isInstalled("LanguageSupportPageNames")) return;
+// $out is where we store the markup we are creating in this function
+$out = "\n\t<div id='$id'>\n";
+
+foreach(languages() as $language) {
+  if(!$page->viewable($language)) continue; // is page viewable in this language?
+	$class = $language->id == user()->language->id ? 'current-item' : 'no-current';
+	$url = $page->localUrl($language);
+	$hreflang = setting('home')->getLanguageValue($language, 'name');
+	if($hreflang == 'home') $hreflang = setting('lang-code');
+	$out .= "\t\t<a class='lang-item $class' hreflang='$hreflang' href='$url'>$language->title</a>\n";
+}
+$out .= "\t</div>\n\n";
+return $out;
+}
+
+/**
  * Given a group of pages render a tree of navigation
  *
  * @param Page|PageArray $items Page to start the navigation tree from or pages to render
@@ -49,6 +211,70 @@ function renderNavTree($items, $maxDepth = 3) {
 	// end our <ul> markup
 	echo "</ul>";
 }
+
+/**
+ * Return Breadcrumbs
+ *
+ * @param array|string $options Options to modify default behavior:
+ *  - `page` (Page|PageArray): Home Page URL.
+ * 	- `id` (string): Selector id.
+ *  - `class` (string): Selector class.
+ *
+ */
+function breadCrumb($options = array())
+{
+	if(page()->template == 'home' || page()->parent->template == 'home') return;
+
+// $out is where we store the markup we are creating in this function
+$out = '';
+
+// Default Options
+$defaults = array(
+	'page' => page(),
+	'id' => 'breadcrumb',
+	'class' => 'breadcrumb'
+);
+// Merge Options
+$options = _mergeOptions($defaults, $options);
+
+$out .= "<ul id='$options[id]' class='$options[class]'>";
+
+// breadcrumbs are the current page's parents
+foreach ($options['page']->parents as $item) {
+	$out .= "<li><a href='$item->url'>$item->title</a></li>";
+}
+
+// optionally output the current page as the last item
+	$out .= $options['page']->parents->id != 1  ? "<li>{$options['page']->title}</li>" : '';
+
+	$out .= "</ul>";
+
+// return breadcrumb
+	return $out;
+}
+
+/**
+ * Return background image
+ *
+ * @param array|string $options Options to modify default behavior:
+ *  - `img` (url): Image url.
+ *
+ */
+function backgroundImage($options = array())
+{
+
+// Default Options
+	$defaults = array(
+		'img' => null,
+	);
+// Merge Options
+	$options = _mergeOptions($defaults, $options);
+
+	if ( setting('background-image') && $options['img'] ) {
+		return  " style='background-image: linear-gradient( rgba(255, 255, 255, 0.92), rgba(216, 216, 216, 0.88) ), url({$options['img']->url});'";
+	}
+}
+
 
 /**
  * Return Privacy Policy Page
@@ -183,138 +409,6 @@ function siteInfo($options = array())
 
 // Return logo / Site Name
 	return $out;
-}
-
-/**
- * Return Navigation Links
- *
- * @param array|string $options Options to modify default behavior:
- *  - `root_url` (link): Home Page URL.
- * 	- `id` (string): Selector id.
- *  - `class` (string): Selector class.
- *
- */
-function navLinks($options = array())
-{
-
-// $out is where we store the markup we are creating in this function
-$out = '';
-
-// Default Options
-$defaults = array(
-	'root_url' => pages('/')->and(pages('/')->children),
-	'id' => 'main-nav',
-	'class' => 'main-nav'
-);
-// Merge Options
-$options = _mergeOptions($defaults, $options);
-
-	$out .= "<nav id='$options[id]' class='$options[class]'>";
-
-		foreach($options['root_url'] as $item) {
-			$class = $item->id == page()->id ? 'current-item' : 'no-current';
-			$out .= "<a class='$class' href='$item->url'>$item->title</a>\n";
-		}
-
-	$out .= "</nav>";
-
-  return $out;
-}
-
-/**
- * Return Breadcrumbs
- *
- * @param array|string $options Options to modify default behavior:
- *  - `page` (Page|PageArray): Home Page URL.
- * 	- `id` (string): Selector id.
- *  - `class` (string): Selector class.
- *
- */
-function breadCrumb($options = array())
-{
-	if(page()->template == 'home' || page()->parent->template == 'home') return;
-
-// $out is where we store the markup we are creating in this function
-$out = '';
-
-// Default Options
-$defaults = array(
-	'page' => page(),
-	'id' => 'breadcrumb',
-	'class' => 'breadcrumb'
-);
-// Merge Options
-$options = _mergeOptions($defaults, $options);
-
-$out .= "<ul id='$options[id]' class='$options[class]'>";
-
-// breadcrumbs are the current page's parents
-foreach ($options['page']->parents as $item) {
-	$out .= "<li><a href='$item->url'>$item->title</a></li>";
-}
-
-// optionally output the current page as the last item
-	$out .= $options['page']->parents->id != 1  ? "<li>{$options['page']->title}</li>" : '';
-
-	$out .= "</ul>";
-
-// return breadcrumb
-	return $out;
-}
-
-/**
- * Return the hreflang parameter
- *
- * @param Page $page
- *
- */
-function hreflang(Page $page)
-{
-  if(!$page->getLanguages()) return;
-  if (!modules()->isInstalled("LanguageSupportPageNames")) return;
-
-  // $out is where we store the markup we are creating in this function
-  $out = '';
-
-  // handle output of 'hreflang' link tags for multi-language
-  foreach(languages() as $language) {
-	// if this page is not viewable in the language, skip it
-	if(!$page->viewable($language)) continue;
-	// get the http URL for this page in the given language
-	$url = $page->localHttpUrl($language);
-	// hreflang code for language uses language name from homepage
-	$hreflang = setting('home')->getLanguageValue($language, 'name');
-	if($hreflang == 'home') $hreflang = setting('lang-code');
-	// output the <link> tag: note that this assumes your language names are the same as required by hreflang.
-	$out .= "<link rel='alternate' hreflang='$hreflang' href='$url' />\n";
-  }
-  return $out;
-}
-
-/**
- * Return Language Menu
- *
- * @param Page $page
- * @param string $id
- *
- */
-function langMenu(Page $page, $id = 'lang-menu')
-{
-if(!$page->getLanguages()) return;
-if (!modules()->isInstalled("LanguageSupportPageNames")) return;
-// $out is where we store the markup we are creating in this function
-$out = "\n\t<div id='$id'>\n";
-
-foreach(languages() as $language) {
-  if(!$page->viewable($language)) continue; // is page viewable in this language?
-	$class = $language->id == user()->language->id ? 'current-item' : 'no-current';
-	$url = $page->localUrl($language);
-	$hreflang = setting('home')->getLanguageValue($language, 'name');
-	if($hreflang == 'home') $hreflang = setting('lang-code');
-	$out .= "\t\t<a class='lang-item $class' hreflang='$hreflang' href='$url'>$language->title</a>\n";
-}
-$out .= "\t</div>\n\n";
-return $out;
 }
 
 /**
