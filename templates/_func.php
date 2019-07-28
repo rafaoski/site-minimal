@@ -1,11 +1,11 @@
 <?php namespace ProcessWire;
 
 /**
- * Return link href to css file if the directory ( assets/css/templates/{template-name.css }) exists
+ * Return link href if the file ( assets/css/templates/{template-name.css }) exists
  *
  * @param array|string $options Options to modify default behavior:
  *  - `link_href` (link): link href to css file.
- *  - `file_location` (link): Checks whether or not a file or directory exists.
+ *  - `file_location` (link): Check is a file exists.
  *
  */
 function linkCss($options = array())

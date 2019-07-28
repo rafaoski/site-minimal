@@ -21,7 +21,7 @@ if(page()->images && count(page()->images)) {
 ?>
 </head>
 <body id='html-body' class='<?= setting('body-classes')->implode(' ') ?>'<?= backgroundImage(['img' => $img]) ?>>
-<?= linkCss() // Get the template css file if the directory ( assets/css/templates/{template-name.css }) exists ?>
+<?= linkCss() // Get the link css if the file ( assets/css/templates/{template-name.css }) exists ?>
 	<!-- HEADER -->
 	<header id="header" class="container-medium header">
 
