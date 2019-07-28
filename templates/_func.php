@@ -399,7 +399,7 @@ function siteInfo($options = array())
 // Merge Options
   	$options = _mergeOptions($defaults, $options);
 // Display logo
-	$out .= "<img src='$options[logo_url]' alt='$options[logo_alt]'></a>";
+	$out .= "<a title='$options[logo_alt]' href='$options[home_url]'><img src='$options[logo_url]' alt='$options[logo_alt]'></a>";
 	if (page()->template == 'home') {
 		$out .=	 "<span class='site-name name'>" . pages('options')->site_name . '</span>';
 	} else {
