@@ -4,9 +4,9 @@
 
 <div id="content-body">
 
-<?php
-	$maxDepth = 4;
-	renderNavTree($pages->get('/'), $maxDepth);
-?>
+	<?php
+		$maxDepth = 4;
+		renderNavTree($pages->get('/'), $maxDepth);
+	?>
 
 </div>

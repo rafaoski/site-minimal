@@ -27,8 +27,7 @@ setting([
 // Get Scripts
 	'js-files' => WireArray([
 		'https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js',
-		'https://unpkg.com/feather-icons',
-	// urls('templates') . 'assets/js/app.js',
+		'https://unpkg.com/feather-icons'
 	]),
 // Basic Transate
 	'lang-code' => __('en'),
