@@ -25,7 +25,7 @@ $defaults = array(
 
 	if( !file_exists($options['file_location']) ) return;
 
-	return "<link rel='stylesheet' href='$options[link_href]'>";
+	return "\n\t<link rel='stylesheet' href='$options[link_href]'>\n";
 }
 
 /**
