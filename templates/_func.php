@@ -1,6 +1,34 @@
 <?php namespace ProcessWire;
 
 /**
+ * Return link href to css file if the directory ( assets/css/templates/{template-name.css }) exists
+ *
+ * @param array|string $options Options to modify default behavior:
+ *  - `link_href` (link): link href to css file.
+ *  - `file_location` (link): Checks whether or not a file or directory exists.
+ *
+ */
+function linkCss($options = array())
+{
+
+// File location
+$fileLocation = 'assets/css/templates/' . page()->template->name . '.css';
+
+// Default Options
+$defaults = array(
+	// get url to css
+		'link_href' => urls('templates') . $fileLocation,
+		'file_location' => __DIR__ . '/' . $fileLocation,
+	);
+	// Merge Options
+	$options = _mergeOptions($defaults, $options);
+
+	if( !file_exists($options['file_location']) ) return;
+
+	return "<link rel='stylesheet' href='$options[link_href]'>";
+}
+
+/**
  * Return site head
  *
  * @param array|string $options Options to modify default behavior:

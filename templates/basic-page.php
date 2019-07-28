@@ -1,9 +1,5 @@
 <?php namespace ProcessWire; ?>
 
-<div id='hero' data-pw-prepend>
-	<link rel="stylesheet" href="<?= urls('templates') ?>assets/css/basic-page.css">
-</div>
-
 <?php if (page()->hasChildren()): ?>
 
 <div id="content-body" pw-append>

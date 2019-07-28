@@ -4,8 +4,6 @@
 
 <div id="content-body" class='content-body'>
 
-<link rel="stylesheet" href="<?= urls('templates') ?>assets/css/contact.css">
-
 	<div class="contact-body flex-center">
 		<div class='contact-info'>
 			<!-- If you want to have more control over the data, create three text fields ( phone, e_mail, adress ) and assign to this template

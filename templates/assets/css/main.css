@@ -145,38 +145,6 @@ ol,li > a {
 	transition: all .5s;
 }
 
-/* SITEMAP */
-
-.nav {
-	margin-left: 0;
-	padding-left: 0;
-	list-style: none;
-}
-.nav .nav {
-	padding-left: 1.5em;
-	list-style: disc;
-}
-.nav li {
-	margin: 1em 0;
-}
-
-.nav-tree li {
-	margin-top: 0;
-	margin-bottom: 0;
-}
-
-.nav a {
-	font-weight: bold;
-}
-
-.nav-tree li a {
-	color: #777;
-}
-
-.nav .current > a {
-	color: #333;
-}
-
 /* NAV MENU */
 
 .main-nav {
