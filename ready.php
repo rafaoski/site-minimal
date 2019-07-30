@@ -17,7 +17,7 @@
 // $wire->addHookAfter('Page::render', function($event) {
 // 	if(page()->template != 'admin') return; // Check if is Admin Panel
 // 	$value  = $event->return; // Return Content
-// 	$templates = urls()->templates; // Get Template folder URL	
-// 	$style = "<link rel='stylesheet' href='{$templates}assets/css/admin.css'>"; // Add Style inside bottom head	
-// 	$event->return = str_replace("</head>", "\n\t$style</head>", $value); // Return All Changes	
+// 	$templates = urls()->templates; // Get Template folder URL
+// 	$style = "<link rel='stylesheet' href='{$templates}assets/css/admin.css'>"; // Add Style inside bottom head
+// 	$event->return = str_replace("</head>", "\n\t$style</head>", $value); // Return All Changes
 // });
